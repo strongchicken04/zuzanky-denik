@@ -1,0 +1,1 @@
+# zuzanky-denik
