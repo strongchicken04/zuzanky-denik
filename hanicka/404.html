@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no" />
+    <title>Haničky Řecko</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="icon" href="/zuzanky-denik/hanicka/favicon.ico"/>
+    <meta name="theme-color" content="#DCF0FA" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Haničky Řecko" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    <style>html,body{background:#DCF0FA;overscroll-behavior-y:none}</style>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
+    <script>
+    // Boot watchdog: if the app fails to mount (e.g. a stale cached bundle
+    // after an update), clear caches + service workers ONCE and reload.
+    // Diary data lives in localStorage/IndexedDB and is untouched by this.
+    setTimeout(function(){
+      try{
+        var root=document.getElementById('root');
+        var booted=!!(root&&root.children&&root.children.length>0);
+        if(booted){sessionStorage.removeItem('zd-recovered');return;}
+        if(sessionStorage.getItem('zd-recovered'))return;
+        sessionStorage.setItem('zd-recovered','1');
+        var unreg=(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)?navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}):Promise.resolve();
+        unreg.then(function(){return (typeof caches!=='undefined'&&caches.keys)?caches.keys():[]}).then(function(ks){return Promise.all((ks||[]).map(function(k){return caches.delete(k)}))}).catch(function(){}).then(function(){location.reload()});
+      }catch(e){}
+    },6000);
+    </script>
+  </head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="/zuzanky-denik/hanicka/_expo/static/js/web/entry-4a03181bfb76bab16408e8b2f611bd75.js" defer></script>
+</body>
+</html>
